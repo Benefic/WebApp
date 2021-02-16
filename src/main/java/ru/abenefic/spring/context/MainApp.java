@@ -1,10 +1,12 @@
 package ru.abenefic.spring.context;
 
+import lombok.Cleanup;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.Scanner;
 
 public class MainApp {
+
     public static void main(String[] args) {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 
@@ -21,14 +23,12 @@ public class MainApp {
                 /avg
                 /exit""");
 
-        Scanner sc = new Scanner(System.in);
+        @Cleanup Scanner sc = new Scanner(System.in);
 
-        // FIXME на сколько оправдано такое решение?
-        readLoop:
-        while (true) {
-            String input = sc.nextLine();
-            String[] command = input.split(" ");
-            String cmd = command[0];
+        String input = sc.nextLine();
+        String[] command = input.split(" ");
+        String cmd = command[0];
+        while (!cmd.equals("/exit")) {
             try {
                 switch (cmd) {
                     case "/create" -> {
@@ -66,11 +66,11 @@ public class MainApp {
                     }
                     case "/count" -> System.out.println(productService.count());
                     case "/avg" -> System.out.printf("%.2f%n", productService.averageCost());
-                    case "/exit" -> {
-                        break readLoop;
-                    }
                     default -> System.out.println("Incorrect input data");
                 }
+                input = sc.nextLine();
+                command = input.split(" ");
+                cmd = command[0];
             } catch (NumberFormatException e) {
                 e.printStackTrace();
             }

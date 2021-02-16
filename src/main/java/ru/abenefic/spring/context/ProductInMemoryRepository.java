@@ -13,6 +13,19 @@ public class ProductInMemoryRepository implements ProductRepository {
 
     private List<Product> products;
 
+    @PostConstruct
+    public void init() {
+        Random random = new Random();
+        products = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            products.add(Product.builder()
+                    .id(i)
+                    .title("Product " + i)
+                    .cost((float) Math.abs(random.nextInt(100) * 1.4))
+                    .build());
+        }
+    }
+
     @Override
     public void create(String title, float cost) {
         products.add(
@@ -55,19 +68,6 @@ public class ProductInMemoryRepository implements ProductRepository {
                 products.remove(product);
                 break;
             }
-        }
-    }
-
-    @PostConstruct
-    public void init() {
-        Random random = new Random();
-        products = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            products.add(Product.builder()
-                    .id(i)
-                    .title("Product " + i)
-                    .cost((float) Math.abs(random.nextInt(100) * 1.4))
-                    .build());
         }
     }
 
