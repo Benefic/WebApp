@@ -12,5 +12,7 @@
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="show_sql">true</property>
         <property name="current_session_context_class">thread</property>
+
+        <mapping class="ru.abenefic.spring.model.Product"/>
     </session-factory>
 </hibernate-configuration>

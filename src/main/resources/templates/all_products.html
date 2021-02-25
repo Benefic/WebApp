@@ -36,10 +36,6 @@
     <span th:unless="${products.size() > 0}">Товаров нет</span>
     <span th:if="${products.size() > 0}" th:text="'Количество товаров: ' + ${products.size()}"></span>
     <form method="post" th:action="@{'/products/add'}">
-        <label>id</label>
-        <label>
-            <input name="id" type="number">
-        </label>
         <label>title</label>
         <label>
             <input name="title" type="text">

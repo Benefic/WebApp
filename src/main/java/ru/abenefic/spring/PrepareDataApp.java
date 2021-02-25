@@ -17,9 +17,12 @@ public class PrepareDataApp {
         Session session = null;
         try {
             String sql = Files.lines(Paths.get("full.sql")).collect(Collectors.joining(" "));
+            String[] strings = sql.split(";");
             session = factory.getCurrentSession();
             session.beginTransaction();
-            session.createNativeQuery(sql).executeUpdate();
+            for (String string : strings) {
+                session.createNativeQuery(string).executeUpdate();
+            }
             session.getTransaction().commit();
         } catch (IOException e) {
             e.printStackTrace();
@@ -31,7 +34,7 @@ public class PrepareDataApp {
         }
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         forcePrepareData();
     }
 }
