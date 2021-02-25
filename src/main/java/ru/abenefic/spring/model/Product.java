@@ -1,14 +1,24 @@
 package ru.abenefic.spring.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
+
+import javax.persistence.*;
 
 @Data
 @Builder
+@NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
+@Entity
+@Table(name = "products")
 public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @NonNull
     private String title;
+
+    @NonNull
     private float cost;
 }
