@@ -19,18 +19,19 @@ public class ProductService {
     }
 
     public List<Product> getAllByCostBetween(float first, float second) {
-
         return productRepository.findProductsByCostBetween(first, second);
     }
 
     public List<Product> getAllByCostIsLessThanEqual(float first) {
-
-        return productRepository.findProductByCostIsLessThanEqual(first);
+        return productRepository.findProductsByCostIsLessThanEqual(first);
     }
 
     public List<Product> getAllByCostGreaterThanEqual(float first) {
-
         return productRepository.findProductsByCostGreaterThanEqual(first);
+    }
+
+    public List<Product> getAllByTitleContains(String title) {
+        return productRepository.findProductsByTitleContainsIgnoreCase(title);
     }
 
     public Product getById(Long id) {
