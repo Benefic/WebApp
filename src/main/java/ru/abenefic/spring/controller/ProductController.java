@@ -57,10 +57,10 @@ public class ProductController {
         Page<Product> products;
 
         switch (search) {
-            case "title_like" -> products = productService.getAllByTitleContains(title, page, size);
-            case "cost_between" -> products = productService.getAllByCostBetween(first, second, page, size);
-            case "cost_less" -> products = productService.getAllByCostIsLessThanEqual(cost, page, size);
-            case "cost_greater" -> products = productService.getAllByCostGreaterThanEqual(cost, page, size);
+            case "title_like" -> products = productService.getAllByTitleContains(title, page, size, resultSort);
+            case "cost_between" -> products = productService.getAllByCostBetween(first, second, page, size, resultSort);
+            case "cost_less" -> products = productService.getAllByCostIsLessThanEqual(cost, page, size, resultSort);
+            case "cost_greater" -> products = productService.getAllByCostGreaterThanEqual(cost, page, size, resultSort);
             default -> // all
                     products = productService.getAll(page, size, resultSort);
         }

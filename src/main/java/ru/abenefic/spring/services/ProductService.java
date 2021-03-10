@@ -24,20 +24,20 @@ public class ProductService {
         return productRepository.findAll(PageRequest.of(page, size, sort));
     }
 
-    public Page<Product> getAllByCostBetween(float first, float second, int page, int size) {
-        return productRepository.findProductsByCostBetween(first, second, PageRequest.of(page, size));
+    public Page<Product> getAllByCostBetween(float first, float second, int page, int size, Sort sort) {
+        return productRepository.findProductsByCostBetween(first, second, PageRequest.of(page, size, sort));
     }
 
-    public Page<Product> getAllByCostIsLessThanEqual(float first, int page, int size) {
-        return productRepository.findProductsByCostIsLessThanEqual(first, PageRequest.of(page, size));
+    public Page<Product> getAllByCostIsLessThanEqual(float first, int page, int size, Sort sort) {
+        return productRepository.findProductsByCostIsLessThanEqual(first, PageRequest.of(page, size, sort));
     }
 
-    public Page<Product> getAllByCostGreaterThanEqual(float first, int page, int size) {
-        return productRepository.findProductsByCostGreaterThanEqual(first, PageRequest.of(page, size));
+    public Page<Product> getAllByCostGreaterThanEqual(float first, int page, int size, Sort sort) {
+        return productRepository.findProductsByCostGreaterThanEqual(first, PageRequest.of(page, size, sort));
     }
 
-    public Page<Product> getAllByTitleContains(String title, int page, int size) {
-        return productRepository.findProductsByTitleContainsIgnoreCase(title, PageRequest.of(page, size));
+    public Page<Product> getAllByTitleContains(String title, int page, int size, Sort sort) {
+        return productRepository.findProductsByTitleContainsIgnoreCase(title, PageRequest.of(page, size, sort));
     }
 
     public Product getById(Long id) {
