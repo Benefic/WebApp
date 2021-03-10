@@ -1,19 +1,19 @@
 package ru.abenefic.spring.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import ru.abenefic.spring.model.Product;
 
-import java.util.List;
-
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-    List<Product> findProductsByCostBetween(float first, float second);
+    Page<Product> findProductsByCostBetween(float first, float second, Pageable pageRequest);
 
-    List<Product> findProductsByCostIsLessThanEqual(float cost);
+    Page<Product> findProductsByCostIsLessThanEqual(float cost, Pageable pageRequest);
 
-    List<Product> findProductsByCostGreaterThanEqual(float cost);
+    Page<Product> findProductsByCostGreaterThanEqual(float cost, Pageable pageRequest);
 
-    List<Product> findProductsByTitleContainsIgnoreCase(String title);
+    Page<Product> findProductsByTitleContainsIgnoreCase(String title, Pageable pageRequest);
 }

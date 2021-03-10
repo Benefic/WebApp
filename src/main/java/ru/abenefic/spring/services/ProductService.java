@@ -1,37 +1,43 @@
 package ru.abenefic.spring.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.abenefic.spring.model.Product;
 import ru.abenefic.spring.repository.ProductRepository;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
 public class ProductService {
 
+    private final ProductRepository productRepository;
+
     @Autowired
-    private ProductRepository productRepository;
-
-    public List<Product> getAll() {
-        return productRepository.findAll();
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
     }
 
-    public List<Product> getAllByCostBetween(float first, float second) {
-        return productRepository.findProductsByCostBetween(first, second);
+    public Page<Product> getAll(int page, int size, Sort sort) {
+        return productRepository.findAll(PageRequest.of(page, size, sort));
     }
 
-    public List<Product> getAllByCostIsLessThanEqual(float first) {
-        return productRepository.findProductsByCostIsLessThanEqual(first);
+    public Page<Product> getAllByCostBetween(float first, float second, int page, int size) {
+        return productRepository.findProductsByCostBetween(first, second, PageRequest.of(page, size));
     }
 
-    public List<Product> getAllByCostGreaterThanEqual(float first) {
-        return productRepository.findProductsByCostGreaterThanEqual(first);
+    public Page<Product> getAllByCostIsLessThanEqual(float first, int page, int size) {
+        return productRepository.findProductsByCostIsLessThanEqual(first, PageRequest.of(page, size));
     }
 
-    public List<Product> getAllByTitleContains(String title) {
-        return productRepository.findProductsByTitleContainsIgnoreCase(title);
+    public Page<Product> getAllByCostGreaterThanEqual(float first, int page, int size) {
+        return productRepository.findProductsByCostGreaterThanEqual(first, PageRequest.of(page, size));
+    }
+
+    public Page<Product> getAllByTitleContains(String title, int page, int size) {
+        return productRepository.findProductsByTitleContainsIgnoreCase(title, PageRequest.of(page, size));
     }
 
     public Product getById(Long id) {
