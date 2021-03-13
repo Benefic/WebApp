@@ -1,4 +1,4 @@
-package ru.abenefic.spring.model;
+package ru.abenefic.spring.model.entities;
 
 import lombok.*;
 
@@ -9,15 +9,12 @@ import javax.persistence.*;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Entity
-@Table(name = "products")
-public class Product {
+@Table(name = "categories")
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @NonNull
     private String title;
-
-    @NonNull
-    private float cost;
 }
