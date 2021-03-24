@@ -1,5 +1,6 @@
 package ru.abenefic.spring.configurations.jwt;
 
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,23 +19,28 @@ import java.io.IOException;
 import static org.springframework.util.StringUtils.hasText;
 
 @Component
+@Log
 public class JwtFilter extends GenericFilterBean {
 
     public static final String AUTHORIZATION = "Authorization";
 
-    private final JwtProvider jwtProvider;
-    private final ShopUserDetailsService shopUserDetailsService;
+    private JwtProvider jwtProvider;
+    private ShopUserDetailsService shopUserDetailsService;
 
     @Autowired
-    public JwtFilter(JwtProvider jwtProvider, ShopUserDetailsService shopUserDetailsService) {
+    public void setJwtProvider(JwtProvider jwtProvider) {
         this.jwtProvider = jwtProvider;
+    }
+
+    @Autowired
+    public void setShopUserDetailsService(ShopUserDetailsService shopUserDetailsService) {
         this.shopUserDetailsService = shopUserDetailsService;
     }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-
         String token = getTokenFromRequest((HttpServletRequest) servletRequest);
+        logger.info("do filter...  " + token);
         if (token != null && jwtProvider.validateToken(token)) {
             String userLogin = jwtProvider.getLoginFromToken(token);
             ShopUserDetails customUserDetails = shopUserDetailsService.loadUserByUsername(userLogin);
