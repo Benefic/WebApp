@@ -15,11 +15,11 @@ public class ShopUserDetails implements UserDetails {
     private Collection<? extends GrantedAuthority> grantedAuthorities;
 
     public static ShopUserDetails fromUserEntity(User user) {
-        ShopUserDetails c = new ShopUserDetails();
-        c.login = user.getLogin();
-        c.password = user.getPassword();
-        c.grantedAuthorities = Collections.singletonList(new SimpleGrantedAuthority(user.getRole().getName()));
-        return c;
+        ShopUserDetails userDetails = new ShopUserDetails();
+        userDetails.login = user.getLogin();
+        userDetails.password = user.getPassword();
+        userDetails.grantedAuthorities = Collections.singletonList(new SimpleGrantedAuthority(user.getRole().getName()));
+        return userDetails;
     }
 
     @Override
