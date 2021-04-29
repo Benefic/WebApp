@@ -17,4 +17,5 @@ public class Storage {
 
     @NonNull
     private String title;
+    private String location;
 }
