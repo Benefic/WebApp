@@ -1,4 +1,4 @@
-create table categories
+create table orders
 (
     id    bigserial primary key,
     title varchar(255)

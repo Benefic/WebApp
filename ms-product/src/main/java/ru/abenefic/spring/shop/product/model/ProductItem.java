@@ -1,4 +1,4 @@
-package ru.abenefic.spring.shop.storage.model;
+package ru.abenefic.spring.shop.product.model;
 
 import lombok.*;
 
@@ -9,14 +9,12 @@ import javax.persistence.*;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Entity
-@Table(name = "storages")
-public class Storage {
+@Table(name = "products_items")
+public class ProductItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @NonNull
-    private String title;
-    private String location;
-
+    private long productId;
 }
