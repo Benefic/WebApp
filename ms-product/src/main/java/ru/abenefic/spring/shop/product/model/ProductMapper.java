@@ -5,6 +5,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.abenefic.spring.shop.core.exceptions.ResourceNotFoundException;
+import ru.abenefic.spring.shop.core.model.dtos.ProductDto;
 import ru.abenefic.spring.shop.product.repository.CategoryRepository;
 
 import javax.annotation.PostConstruct;

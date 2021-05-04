@@ -1,4 +1,4 @@
-package ru.abenefic.spring.shop.product.model;
+package ru.abenefic.spring.shop.core.model.dtos;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -7,8 +7,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import ru.abenefic.spring.shop.core.exceptions.ResourceNotFoundException;
+import ru.abenefic.spring.shop.core.model.dtos.ProductDto;
 import ru.abenefic.spring.shop.product.model.Product;
-import ru.abenefic.spring.shop.product.model.ProductDto;
 import ru.abenefic.spring.shop.product.model.ProductMapper;
 import ru.abenefic.spring.shop.product.repository.ProductRepository;
 
