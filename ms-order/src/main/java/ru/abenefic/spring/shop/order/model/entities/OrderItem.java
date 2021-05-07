@@ -1,4 +1,4 @@
-package ru.abenefic.spring.shop.core.model;
+package ru.abenefic.spring.shop.order.model.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,12 +12,19 @@ import javax.persistence.*;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "orders_items")
+public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String name;
-    private String role;
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
+
+    private long productItemId;
+    private float count;
+    private float cost;
+    private float sum;
+
 }

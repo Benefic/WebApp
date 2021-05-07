@@ -13,13 +13,14 @@ values ('Moscow', 'Moscow, TZB'),
 create table storage_products
 (
     storage_id      bigint,
-    product_item_id bigint
+    product_item_id bigint,
+    count           int
 );
 
-insert into storage_products (storage_id, product_item_id)
-values (1, 5),
-       (1, 4),
-       (1, 6),
-       (2, 4),
-       (2, 1),
-       (2, 2);
+insert into storage_products (storage_id, product_item_id, count)
+values (1, 5, 45654),
+       (1, 4, 154),
+       (1, 6, 4545),
+       (2, 4, 762),
+       (2, 1, 45),
+       (2, 2, 454);
