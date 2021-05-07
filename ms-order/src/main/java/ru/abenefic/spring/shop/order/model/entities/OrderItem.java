@@ -22,6 +22,7 @@ public class OrderItem {
     @JoinColumn(name = "order_id")
     private Order order;
 
+    @Column(name = "product_item_id")
     private long productItemId;
     private float count;
     private float cost;
