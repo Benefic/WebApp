@@ -1,7 +1,6 @@
 package ru.abenefic.spring.shop.core.services;
 
 import io.jsonwebtoken.*;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import ru.abenefic.spring.shop.core.interfaces.ITokenService;
 import ru.abenefic.spring.shop.core.model.UserInfo;
@@ -14,8 +13,7 @@ import java.util.List;
 @Component
 public class TokenService implements ITokenService {
 
-    @Value("${jwt.secret}")
-    private String JWT_SECRET;
+    private static final String JWT_SECRET = "jnafhq38rq3iowfnqegui4rqevoyudfhvef4qerjn3iueh93uqrbeg9qawsx54hibpv8y4uihb94uerhbgt389q9";
 
     @Override
     public String generateToken(UserInfo user) {
@@ -41,12 +39,12 @@ public class TokenService implements ITokenService {
         Long userId = jwsClaims.getBody()
                 .get("id", Long.class);
 
-        String role = jwsClaims.getBody()
-                .get("role", String.class);
+        List<String> role = jwsClaims.getBody()
+                .get("role", List.class);
 
         return UserInfo.builder()
                 .id(userId)
-                .roles(List.of(role))
+                .roles(role)
                 .build();
     }
 }

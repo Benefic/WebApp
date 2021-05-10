@@ -10,5 +10,4 @@ spring:
   h2:
     console:
       enabled: true
-jwt:
-  secret: "jnafhq38rq3iowfnqegui4rqevoyudfhvef4qerjn3iueh93uqrbeg9qawsx54hibpv8y4uihb94uerhbgt389q9"
+
