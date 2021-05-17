@@ -1,10 +1,13 @@
 package ru.abenefic.spring.shop.core.filters;
 
 import io.jsonwebtoken.ExpiredJwtException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import ru.abenefic.spring.shop.core.interfaces.ITokenService;
 import ru.abenefic.spring.shop.core.model.UserInfo;
@@ -17,9 +20,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
+    @Autowired
     private final ITokenService tokenService;
+    @Autowired
+    private RedisTemplate<String, String> redisTemplate;
 
     public JWTAuthenticationFilter(ITokenService tokenService) {
         this.tokenService = tokenService;
@@ -51,6 +58,8 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
         String token = authorizationHeader.replace("Bearer ", "");
 
         // TODO check token in Redis
+        redisTemplate.persist("testkey");
+        System.out.println("test");
         UserInfo userInfo = tokenService.parseToken(token);
 
         List<GrantedAuthority> authorities = new ArrayList<>();

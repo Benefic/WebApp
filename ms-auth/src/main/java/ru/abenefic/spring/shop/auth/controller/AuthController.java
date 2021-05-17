@@ -44,6 +44,7 @@ public class AuthController {
         return new AuthResponseDto(token);
     }
 
+
     @GetMapping("/check")
     @PreAuthorize("hasRole('ROLE_USER')")
     public String check() {

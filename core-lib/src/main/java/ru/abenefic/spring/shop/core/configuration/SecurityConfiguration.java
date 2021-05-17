@@ -11,14 +11,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import ru.abenefic.spring.shop.core.filters.JWTAuthenticationFilter;
-import ru.abenefic.spring.shop.core.interfaces.ITokenService;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private ITokenService tokenService;
+    private JWTAuthenticationFilter tokenFilter;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -27,7 +26,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilterBefore(new JWTAuthenticationFilter(tokenService),
+                .addFilterBefore(tokenFilter,
                         UsernamePasswordAuthenticationFilter.class);
     }
 
