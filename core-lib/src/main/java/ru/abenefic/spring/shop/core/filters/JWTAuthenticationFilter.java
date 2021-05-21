@@ -58,8 +58,8 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
         String token = authorizationHeader.replace("Bearer ", "");
 
         // TODO check token in Redis
-        redisTemplate.persist("testkey");
-        System.out.println("test");
+        redisTemplate.opsForValue().set(token, "");
+
         UserInfo userInfo = tokenService.parseToken(token);
 
         List<GrantedAuthority> authorities = new ArrayList<>();
