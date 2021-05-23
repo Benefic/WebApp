@@ -9,6 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import ru.abenefic.spring.shop.core.exceptions.InvalidTokenException;
 import ru.abenefic.spring.shop.core.interfaces.ITokenService;
 import ru.abenefic.spring.shop.core.model.UserInfo;
 
@@ -54,11 +55,12 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
                 || !authorizationHeader.startsWith("Bearer ");
     }
 
-    private UsernamePasswordAuthenticationToken checkToken(String authorizationHeader) throws ExpiredJwtException {
+    private UsernamePasswordAuthenticationToken checkToken(String authorizationHeader) throws ExpiredJwtException, InvalidTokenException {
         String token = authorizationHeader.replace("Bearer ", "");
 
-        // TODO check token in Redis
-        redisTemplate.opsForValue().set(token, "");
+        if (redisTemplate.hasKey(token)) {
+            throw new InvalidTokenException("token was disabled");
+        }
 
         UserInfo userInfo = tokenService.parseToken(token);
 

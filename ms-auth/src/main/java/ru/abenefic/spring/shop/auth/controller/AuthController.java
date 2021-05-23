@@ -1,7 +1,6 @@
 package ru.abenefic.spring.shop.auth.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.abenefic.spring.shop.auth.model.Role;
 import ru.abenefic.spring.shop.auth.model.User;
@@ -12,6 +11,7 @@ import ru.abenefic.spring.shop.core.model.dtos.AuthRequestDto;
 import ru.abenefic.spring.shop.core.model.dtos.AuthResponseDto;
 import ru.abenefic.spring.shop.core.model.dtos.SignUpRequestDto;
 
+import java.util.Date;
 import java.util.stream.Collectors;
 
 @RestController
@@ -45,9 +45,13 @@ public class AuthController {
     }
 
 
-    @GetMapping("/check")
-    @PreAuthorize("hasRole('ROLE_USER')")
-    public String check() {
+    @GetMapping("/logout")
+    public String logout(
+            @RequestHeader(value = "Authorization", required = false) String authorizationHeader) {
+        String token = authorizationHeader.replace("Bearer ", "");
+        Date expiration = tokenService.getTokenExpirationTime(token);
+        long redisTimeout = expiration.getTime() - System.currentTimeMillis();
+        userService.disableToken(token, redisTimeout);
         return "OK!";
     }
 

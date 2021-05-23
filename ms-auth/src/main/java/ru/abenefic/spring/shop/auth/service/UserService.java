@@ -1,6 +1,7 @@
 package ru.abenefic.spring.shop.auth.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.abenefic.spring.shop.auth.model.Role;
@@ -9,6 +10,7 @@ import ru.abenefic.spring.shop.auth.repository.RoleRepository;
 import ru.abenefic.spring.shop.auth.repository.UserRepository;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class UserService {
@@ -20,6 +22,9 @@ public class UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private RedisTemplate<String, String> redisTemplate;
 
     public User saveUser(User user) {
         Role role = roleRepository.findByName("ROLE_USER");
@@ -40,5 +45,11 @@ public class UserService {
             }
         }
         return null;
+    }
+
+    public void disableToken(String token, long timeout) {
+        if (token != null) {
+            redisTemplate.opsForValue().set(token, "", timeout, TimeUnit.MILLISECONDS);
+        }
     }
 }

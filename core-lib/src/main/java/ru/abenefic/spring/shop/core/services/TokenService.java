@@ -47,4 +47,12 @@ public class TokenService implements ITokenService {
                 .roles(role)
                 .build();
     }
+
+    @Override
+    public Date getTokenExpirationTime(String token) {
+        return Jwts.parser()
+                .setSigningKey(JWT_SECRET)
+                .parseClaimsJws(token)
+                .getBody().getExpiration();
+    }
 }
