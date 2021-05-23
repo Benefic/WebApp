@@ -1,14 +1,18 @@
-package ru.abenefic.spring.shop.core.model.dtos;
+package ru.abenefic.spring.shop.core.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDto {
+public class UserInfo {
     private long id;
     private String name;
-    private String role;
+    private List<String> roles;
 }
