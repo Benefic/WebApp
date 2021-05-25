@@ -1,10 +1,15 @@
 server:
-  servlet:
-    context-path: /shop
-  port: 8191
+  port: 8099
 spring:
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:users_db;MODE=PostgreSQL
     username: sa
     password:
+  application:
+    name: ms-auth
+eureka:
+  client:
+    service-url:
+      default-zone: ${EUREKA_URI:http://localhost:8761/eureka}
+    fetch-registry: true
