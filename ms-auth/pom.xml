@@ -14,10 +14,6 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>ms-auth</name>
 
-    <properties>
-        <java.version>15</java.version>
-    </properties>
-
     <dependencies>
 
         <dependency>
