@@ -10,7 +10,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import static org.modelmapper.config.Configuration.AccessLevel.PRIVATE;
 
 @EnableAspectJAutoProxy
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "ru.abenefic.spring")
 public class MsProductApplication {
 
     public static void main(String[] args) {

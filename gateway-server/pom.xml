@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -10,18 +10,19 @@
     </parent>
 
     <groupId>ru.abenefic.spring.shop</groupId>
-    <artifactId>auth</artifactId>
+    <artifactId>gateway-server</artifactId>
     <version>0.0.1</version>
-    <name>ms-auth</name>
+    <name>gateway-server</name>
 
     <dependencies>
         <dependency>
-            <groupId>ru.abenefic.spring.shop</groupId>
-            <artifactId>core</artifactId>
-            <version>0.0.1</version>
-            <scope>compile</scope>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-gateway</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
     </dependencies>
-
 
 </project>

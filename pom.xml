@@ -28,13 +28,10 @@
         <module>ms-product</module>
         <module>ms-storage</module>
         <module>eureka-server</module>
+        <module>gateway-server</module>
     </modules>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
