@@ -3,22 +3,20 @@ package ru.abenefic.spring.shop.core.model.dtos;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
 
-import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderDto {
+public class CartDto {
 
-    private long id;
+    private UUID id;
     private long user_id;
+
     private float summ;
 
-    @CreationTimestamp
-    private LocalDateTime createdAt;
+    private Collection<CartItemDto> orderItems;
 
-    private Collection<OrderItemDto> orderItems;
 }

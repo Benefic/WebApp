@@ -1,4 +1,4 @@
-package ru.abenefic.spring.shop.order.model.entities;
+package ru.abenefic.spring.shop.order.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,8 +20,8 @@ public class OrderItem {
     @JoinColumn(name = "order_id")
     private Order order;
 
-    @Column(name = "product_item_id")
-    private long productItemId;
+    @Column(name = "product_id")
+    private long productId;
     private float count;
     private float cost;
     private float sum;

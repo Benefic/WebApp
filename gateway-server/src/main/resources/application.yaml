@@ -41,6 +41,7 @@ spring:
           uri: lb://ms-storage
           predicates:
             - Path=/api/*/storage/**
+
     loadbalancer:
       ribbon:
         enabled: true

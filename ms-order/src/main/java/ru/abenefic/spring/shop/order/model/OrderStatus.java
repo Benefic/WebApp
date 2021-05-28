@@ -1,4 +1,4 @@
-package ru.abenefic.spring.shop.order.model.entities;
+package ru.abenefic.spring.shop.order.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
