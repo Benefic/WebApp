@@ -24,7 +24,40 @@ public class Cart {
 
     private float summ;
 
-    @OneToMany(mappedBy = "order")
-    private Collection<OrderItem> orderItems;
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Collection<CartItem> cartItems;
 
+    public void add(CartItem cartItem) {
+        for (CartItem item : cartItems) {
+            if (item.getProductId() == cartItem.getProductId()) {
+                item.increment(cartItem.getCount());
+                recalculate();
+                return;
+            }
+        }
+        cartItems.add(cartItem);
+        cartItem.setCart(this);
+        recalculate();
+    }
+
+    public void recalculate() {
+        summ = 0;
+        for (CartItem cartItem : cartItems) {
+            summ += cartItem.getCost();
+        }
+    }
+
+    public void clear() {
+        for (CartItem cartItem : cartItems) {
+            cartItem.setCart(null);
+        }
+        cartItems.clear();
+        recalculate();
+    }
+
+    public void merge(Cart cart) {
+        for (CartItem cartItem : cart.cartItems) {
+            add(cartItem);
+        }
+    }
 }

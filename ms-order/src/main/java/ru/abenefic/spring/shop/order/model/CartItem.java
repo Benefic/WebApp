@@ -39,7 +39,7 @@ public class CartItem {
         recalc();
     }
 
-    public void increment(int amount) {
+    public void increment(float amount) {
         count += amount;
         recalc();
     }

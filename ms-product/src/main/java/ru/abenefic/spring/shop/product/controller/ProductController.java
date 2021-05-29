@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import ru.abenefic.spring.shop.core.exceptions.NoSuchPageException;
 import ru.abenefic.spring.shop.core.model.dtos.ProductDto;
 import ru.abenefic.spring.shop.product.model.Product;
-import ru.abenefic.spring.shop.product.model.ProductSort;
-import ru.abenefic.spring.shop.product.model.SortDirection;
+import ru.abenefic.spring.shop.core.enums.ProductSort;
+import ru.abenefic.spring.shop.core.enums.SortDirection;
 import ru.abenefic.spring.shop.product.repository.ProductSpecifications;
 import ru.abenefic.spring.shop.product.service.ProductService;
 

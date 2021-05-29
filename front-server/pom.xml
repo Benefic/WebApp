@@ -6,18 +6,12 @@
         <groupId>ru.abenefic.spring</groupId>
         <artifactId>shop</artifactId>
         <version>0.0.1</version>
+        <relativePath/>
     </parent>
 
     <groupId>ru.abenefic.spring.shop</groupId>
-    <artifactId>eureka-server</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>eureka-server</name>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
-        </dependency>
-    </dependencies>
+    <artifactId>front-server</artifactId>
+    <version>0.0.1</version>
+    <name>front-server</name>
 
 </project>
