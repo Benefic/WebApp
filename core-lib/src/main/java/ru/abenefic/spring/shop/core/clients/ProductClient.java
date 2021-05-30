@@ -1,6 +1,7 @@
 package ru.abenefic.spring.shop.core.clients;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,12 +16,12 @@ import java.util.List;
 @FeignClient(value = "ms-product", path = "/api/v1/products")
 public interface ProductClient {
     @GetMapping
-    ResponseEntity<List<ProductDto>> getAll(@RequestParam MultiValueMap<String, String> params,
-                                            @RequestParam(defaultValue = "1") int page,
-                                            @RequestParam(defaultValue = "10") int size,
-                                            @RequestParam(defaultValue = "ASC") SortDirection costSortDirection,
-                                            @RequestParam(defaultValue = "ASC") SortDirection titleSortDirection,
-                                            @RequestParam(defaultValue = "TITLE") ProductSort mainSort
+    Page<ProductDto> getAll(@RequestParam MultiValueMap<String, String> params,
+                                  @RequestParam(defaultValue = "1") int page,
+                                  @RequestParam(defaultValue = "10") int size,
+                                  @RequestParam(defaultValue = "ASC") SortDirection costSortDirection,
+                                  @RequestParam(defaultValue = "ASC") SortDirection titleSortDirection,
+                                  @RequestParam(defaultValue = "TITLE") ProductSort mainSort
     );
 
     @GetMapping("/{id}")

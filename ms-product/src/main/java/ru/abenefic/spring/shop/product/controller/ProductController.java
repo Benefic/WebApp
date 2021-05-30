@@ -31,9 +31,9 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ProductDto>> getAll(@RequestParam MultiValueMap<String, String> params,
-                                                   @RequestParam(defaultValue = "1") int page,
-                                                   @RequestParam(defaultValue = "10") int size,
+    public Page<ProductDto> getAll(@RequestParam MultiValueMap<String, String> params,
+                                                   @RequestParam(name = "p", defaultValue = "1") int page,
+                                                   @RequestParam(defaultValue = "5") int size,
                                                    @RequestParam(defaultValue = "ASC") SortDirection costSortDirection,
                                                    @RequestParam(defaultValue = "ASC") SortDirection titleSortDirection,
                                                    @RequestParam(defaultValue = "TITLE") ProductSort mainSort
@@ -62,7 +62,7 @@ public class ProductController {
         if (products.getTotalPages() <= page) {
             throw new NoSuchPageException("Maximum page is " + products.getTotalPages());
         }
-        return new ResponseEntity<>(products.getContent(), HttpStatus.OK);
+        return products;
     }
 
     @GetMapping("/{id}")

@@ -27,7 +27,8 @@ public class CartService {
     }
 
     public CartDto findById(UUID uuid) {
-        return modelMapper.map(cartRepository.findById(uuid), CartDto.class);
+        Optional<Cart> cart = cartRepository.findById(uuid);
+        return modelMapper.map(cart.orElseGet(Cart::new), CartDto.class);
     }
 
     @Transactional

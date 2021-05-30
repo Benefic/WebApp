@@ -16,7 +16,6 @@ public class CartDto {
     private long user_id;
 
     private float summ;
-
-    private Collection<CartItemDto> orderItems;
+    private Collection<CartItemDto> cartItemDtos;
 
 }

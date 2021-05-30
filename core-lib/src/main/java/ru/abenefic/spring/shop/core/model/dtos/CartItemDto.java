@@ -13,7 +13,7 @@ public class CartItemDto {
 
     private CartDto cart;
 
-    private long productId;
+    private ProductDto product;
     private float count;
     private float cost;
     private float sum;

@@ -6,7 +6,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -25,9 +26,12 @@ public class Cart {
     private float summ;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Collection<CartItem> cartItems;
+    private List<CartItem> cartItems;
 
     public void add(CartItem cartItem) {
+        if (cartItems == null) {
+            cartItems = new LinkedList<>();
+        }
         for (CartItem item : cartItems) {
             if (item.getProductId() == cartItem.getProductId()) {
                 item.increment(cartItem.getCount());
@@ -35,8 +39,10 @@ public class Cart {
                 return;
             }
         }
-        cartItems.add(cartItem);
-        cartItem.setCart(this);
+        if (cartItem != null) {
+            cartItems.add(cartItem);
+            cartItem.setCart(this);
+        }
         recalculate();
     }
 

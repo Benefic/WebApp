@@ -9,8 +9,9 @@ angular.module('app').controller('productsController', function ($scope, $http, 
                 title: $scope.filter ? $scope.filter.title : null,
                 min_price: $scope.filter ? $scope.filter.min_price : null,
                 max_price: $scope.filter ? $scope.filter.max_price : null,
-                p: pageIndex
-            }
+                page: pageIndex
+            },
+            page: pageIndex
         }).then(function (response) {
             $scope.ProductsPage = response.data;
 
