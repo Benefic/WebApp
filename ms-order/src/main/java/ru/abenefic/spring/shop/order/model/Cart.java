@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
@@ -30,7 +31,7 @@ public class Cart {
 
     public void add(CartItem cartItem) {
         if (cartItems == null) {
-            cartItems = new LinkedList<>();
+            cartItems = new ArrayList<>();
         }
         for (CartItem item : cartItems) {
             if (item.getProductId() == cartItem.getProductId()) {
