@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -16,6 +16,6 @@ public class CartDto {
     private long user_id;
 
     private float summ;
-    private Collection<CartItemDto> cartItemDtos;
+    private List<CartItemDto> cartItemDtos;
 
 }
