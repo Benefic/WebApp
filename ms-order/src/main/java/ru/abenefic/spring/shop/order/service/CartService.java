@@ -37,6 +37,7 @@ public class CartService {
         Cart cart = modelMapper.map(cartDto, Cart.class);
         ProductDto product = productClient.getById(productId);
         cart.add(new CartItem(product));
+        save(cart);
     }
 
     @Transactional

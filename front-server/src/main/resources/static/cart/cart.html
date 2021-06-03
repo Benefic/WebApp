@@ -1,5 +1,5 @@
 <h3>Корзина</h3>
-<table ng-show="happyUserCart.cartItemDtos.length > 0" class="table table-hover" cellpadding="0" cellspacing="0">
+<table ng-show="happyUserCart.cartItems.length > 0" class="table table-hover" cellpadding="0" cellspacing="0">
     <thead>
     <tr>
         <td>Название</td>
@@ -8,10 +8,10 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="oi in happyUserCart.cartItemDtos">
-<!--        <td>{{oi.productTitle}}</td>-->
+    <tr ng-repeat="oi in happyUserCart.cartItems">
+        <td>{{oi.productId}}</td>
         <td>{{oi.count}}</td>
-        <td>{{oi.price + ' x ' + oi.count + ' = ' + oi.price}}</td>
+        <td>{{oi.cost + ' x ' + oi.count + ' = ' + oi.sum}}</td>
     </tr>
     <tr>
         <td>Итого</td>
@@ -20,6 +20,6 @@
     </tr>
     </tbody>
 </table>
-<span ng-show="happyUserCart.cartItemDtos.length == 0">Ваша корзина пуста</span>
-<button ng-show="happyUserCart.cartItemDtos.length > 0" class="btn btn-primary" ng-click="goToOrderSubmit()">Перейти к оформлению заказа</button>
-<button ng-show="happyUserCart.cartItemDtos.length > 0"  class="btn btn-danger" ng-click="clearCart()">Очистить корзину</button>
+<span ng-show="happyUserCart.cartItems.length == 0">Ваша корзина пуста</span>
+<button ng-show="happyUserCart.cartItems.length > 0" class="btn btn-primary" ng-click="goToOrderSubmit()">Перейти к оформлению заказа</button>
+<button ng-show="happyUserCart.cartItems.length > 0"  class="btn btn-danger" ng-click="clearCart()">Очистить корзину</button>
