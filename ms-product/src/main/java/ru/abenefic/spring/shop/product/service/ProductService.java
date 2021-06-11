@@ -9,19 +9,21 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import ru.abenefic.spring.shop.core.configuration.CachedDataChangePublisher;
 import ru.abenefic.spring.shop.core.exceptions.ResourceNotFoundException;
 import ru.abenefic.spring.shop.core.model.dtos.ProductDto;
 import ru.abenefic.spring.shop.product.model.Product;
 import ru.abenefic.spring.shop.product.model.ProductMapper;
 import ru.abenefic.spring.shop.product.repository.ProductRepository;
 
+import javax.annotation.PostConstruct;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 @Service
-public class ProductService {
+public class ProductService extends CachedDataChangePublisher {
 
-    private final static String PRODUCT_KEY_PREFIX = "product:";
+    public final static String PRODUCT_KEY_PREFIX = "product:";
     private final static long PRODUCT_CACHE_TIME = 10;
 
     private final ProductRepository productRepository;
@@ -35,6 +37,11 @@ public class ProductService {
         this.mapper = mapper;
         this.redisTemplate = redisTemplate;
         this.objectMapper = objectMapper;
+    }
+
+    @PostConstruct
+    private void init(){
+        subscribe(new ProductChangeSubscriber(redisTemplate));
     }
 
     public Page<ProductDto> getAll(Specification<Product> spec, int page, int size, Sort sort) {
@@ -63,11 +70,18 @@ public class ProductService {
         return product.orElseThrow(() -> new ResourceNotFoundException(String.format("Product with id %d not found", id)));
     }
 
-    public ProductDto add(ProductDto student) {
-        return mapper.toDto(productRepository.save(mapper.toEntity(student)));
+    public ProductDto add(ProductDto product) {
+        return mapper.toDto(productRepository.save(mapper.toEntity(product)));
     }
 
     public void delete(Long id) {
         productRepository.deleteById(id);
+        notify(id);
+    }
+
+    public ProductDto save(ProductDto product){
+        productRepository.save(mapper.toEntity(product));
+        notify(product.getId());
+        return product;
     }
 }
