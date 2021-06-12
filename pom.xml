@@ -29,6 +29,7 @@
         <module>ms-storage</module>
         <module>eureka-server</module>
         <module>gateway-server</module>
+        <module>front-server</module>
     </modules>
 
     <dependencies>
