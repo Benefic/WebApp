@@ -20,13 +20,11 @@
     </properties>
 
     <dependencies>
-
         <dependency>
             <groupId>ru.abenefic.spring.shop</groupId>
             <artifactId>core</artifactId>
             <version>${shop.core.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>

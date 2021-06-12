@@ -1,6 +1,7 @@
 package ru.abenefic.spring.shop.order.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import ru.abenefic.spring.shop.core.clients.ProductClient;
@@ -14,6 +15,7 @@ import javax.transaction.Transactional;
 import java.util.Optional;
 import java.util.UUID;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class CartService {
@@ -33,10 +35,20 @@ public class CartService {
 
     @Transactional
     public void addToCart(UUID cartUuid, Long productId) {
+
+        log.info(cartUuid.toString());
+
         CartDto cartDto = findById(cartUuid);
         Cart cart = modelMapper.map(cartDto, Cart.class);
+        CartItem cartItem = cart.getItemByProductId(productId);
+        if (cartItem != null) {
+            cartItem.increment();
+            cart.recalculate();
+            return;
+        }
         ProductDto product = productClient.getById(productId);
-        cart.add(new CartItem(product));
+        cartItem = new CartItem(product);
+        cart.add(cartItem);
         save(cart);
     }
 

@@ -28,9 +28,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().authorizeRequests().antMatchers("/").permitAll().antMatchers("/h2-console/**").permitAll()
                 .and()
                 .addFilterBefore(tokenFilter,
                         UsernamePasswordAuthenticationFilter.class);
+
+        http.headers().frameOptions().disable();
     }
 
     @Bean

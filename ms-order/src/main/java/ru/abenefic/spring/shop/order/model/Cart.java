@@ -4,8 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
+import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -25,13 +27,11 @@ public class Cart {
 
     private float summ;
 
-    @OneToMany(mappedBy = "cart", cascade = {CascadeType.ALL}, orphanRemoval = true)
-    private List<CartItem> cartItems;
+    @OneToMany(mappedBy = "cart", fetch =FetchType.EAGER, cascade = {CascadeType.ALL}, orphanRemoval = true)
+    private List<CartItem> cartItems = new ArrayList<>();
 
     public void add(CartItem cartItem) {
-        if (cartItems == null) {
-            cartItems = new ArrayList<>();
-        }
+
         for (CartItem item : cartItems) {
             if (item.getProductId() == cartItem.getProductId()) {
                 item.increment(cartItem.getCount());
@@ -46,6 +46,14 @@ public class Cart {
         recalculate();
     }
 
+    public CartItem getItemByProductId(Long productId) {
+        for (CartItem cartItem : cartItems) {
+            if (cartItem.getProductId() == productId) {
+                return cartItem;
+            }
+        }
+        return null;
+    }
     public void recalculate() {
         summ = 0;
         for (CartItem cartItem : cartItems) {
@@ -61,7 +69,7 @@ public class Cart {
         recalculate();
     }
 
-    public void merge(Cart cart) {
+    public void merge(@NotNull Cart cart) {
         for (CartItem cartItem : cart.cartItems) {
             add(cartItem);
         }

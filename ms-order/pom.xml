@@ -14,22 +14,16 @@
     <version>0.0.1</version>
     <name>ms-order</name>
 
-    <dependencies>
+    <properties>
+        <shop.core.version>0.0.1</shop.core.version>
+    </properties>
 
+    <dependencies>
         <dependency>
             <groupId>ru.abenefic.spring.shop</groupId>
             <artifactId>core</artifactId>
-            <version>0.0.1</version>
+            <version>${shop.core.version}</version>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

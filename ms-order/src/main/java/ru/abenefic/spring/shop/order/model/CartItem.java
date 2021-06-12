@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import ru.abenefic.spring.shop.core.model.dtos.ProductDto;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
@@ -17,7 +18,7 @@ public class CartItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL}, optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "cart_id")
     private Cart cart;
 
@@ -54,3 +55,4 @@ public class CartItem {
     }
 
 }
+
