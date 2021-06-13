@@ -28,6 +28,7 @@ create table carts_items
     id         bigserial primary key,
     cart_id    UUID,
     product_id bigint,
+    product_title varchar (255),
     count      float,
     cost       float,
     sum        float

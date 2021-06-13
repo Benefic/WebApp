@@ -44,6 +44,7 @@ public class CartService {
         if (cartItem != null) {
             cartItem.increment();
             cart.recalculate();
+            save(cart);
             return;
         }
         ProductDto product = productClient.getById(productId);

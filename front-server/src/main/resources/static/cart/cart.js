@@ -32,9 +32,6 @@ angular.module('app').controller('cartController', function ($scope, $http, $loc
         $location.path('/order_confirmation');
     }
 
-    $scope.goToOrderSubmit = function () {
-        $location.path('/order_confirmation');
-    }
 
     $scope.loadCart();
 });

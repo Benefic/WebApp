@@ -24,12 +24,14 @@ public class CartItem {
 
     @Column(name = "product_id")
     private long productId;
+    private String productTitle;
     private float count;
     private float cost;
     private float sum;
 
     public CartItem(ProductDto product) {
         this.productId = product.getId();
+        this.productTitle = product.getTitle();
         this.count = 1;
         this.cost = product.getCost();
         recalc();
