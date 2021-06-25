@@ -9,6 +9,7 @@ import ru.abenefic.spring.shop.core.model.dtos.CartDto;
 import ru.abenefic.spring.shop.core.model.dtos.ProductDto;
 import ru.abenefic.spring.shop.order.model.Cart;
 import ru.abenefic.spring.shop.order.model.CartItem;
+import ru.abenefic.spring.shop.order.repository.CartItemsRepository;
 import ru.abenefic.spring.shop.order.repository.CartRepository;
 
 import javax.transaction.Transactional;
@@ -22,6 +23,7 @@ public class CartService {
 
     private final ProductClient productClient;
     private final CartRepository cartRepository;
+    private final CartItemsRepository cartItemsRepository;
     private final ModelMapper modelMapper;
 
     public Cart save(Cart cart) {
@@ -44,6 +46,7 @@ public class CartService {
         log.info(cartUuid.toString());
 
         Cart cart = findCartById(cartUuid);
+        cart.addAll(cartItemsRepository.findAllByCart(cart));
         CartItem cartItem = cart.getItemByProductId(productId);
         if (cartItem != null) {
             cartItem.increment();

@@ -26,7 +26,7 @@ public class Cart {
 
     private float summ;
 
-    @OneToMany(mappedBy = "cart", fetch = FetchType.EAGER, cascade = {CascadeType.ALL}, orphanRemoval = true)
+    @OneToMany(mappedBy = "cart", fetch = FetchType.LAZY, cascade = {CascadeType.ALL}, orphanRemoval = true)
     private List<CartItem> cartItems = new ArrayList<>();
 
     public void add(CartItem cartItem) {
@@ -43,6 +43,11 @@ public class Cart {
             cartItems.add(cartItem);
         }
         recalculate();
+    }
+
+    public void addAll(List<CartItem> cartItems) {
+        this.cartItems.clear();
+        this.cartItems.addAll(cartItems);
     }
 
     public CartItem getItemByProductId(Long productId) {
