@@ -13,6 +13,7 @@ public class OrderItemDto {
     private OrderDto order;
 
     private ProductDto product;
+    private String productTitle;
     private float count;
     private float cost;
     private float sum;

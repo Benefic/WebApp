@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Data
@@ -29,7 +30,16 @@ public class Order {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "order")
-    private Collection<OrderItem> orderItems;
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = {CascadeType.ALL}, orphanRemoval = true)
+    private Collection<OrderItem> orderItems = new ArrayList<>();
 
+    public Order(Cart cart, Long userId) {
+        this.userId = userId;
+        this.summ = cart.getSumm();
+        for (CartItem cartItem : cart.getCartItems()) {
+            OrderItem orderItem = new OrderItem(cartItem);
+            orderItem.setOrder(this);
+            this.orderItems.add(orderItem);
+        }
+    }
 }
