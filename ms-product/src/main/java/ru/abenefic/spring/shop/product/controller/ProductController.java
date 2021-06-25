@@ -5,19 +5,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+import ru.abenefic.spring.shop.core.enums.ProductSort;
+import ru.abenefic.spring.shop.core.enums.SortDirection;
 import ru.abenefic.spring.shop.core.exceptions.NoSuchPageException;
 import ru.abenefic.spring.shop.core.model.dtos.ProductDto;
 import ru.abenefic.spring.shop.product.model.Product;
-import ru.abenefic.spring.shop.core.enums.ProductSort;
-import ru.abenefic.spring.shop.core.enums.SortDirection;
 import ru.abenefic.spring.shop.product.repository.ProductSpecifications;
 import ru.abenefic.spring.shop.product.service.ProductService;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/products")
@@ -32,11 +29,11 @@ public class ProductController {
 
     @GetMapping
     public Page<ProductDto> getAll(@RequestParam MultiValueMap<String, String> params,
-                                                   @RequestParam(name = "p", defaultValue = "1") int page,
-                                                   @RequestParam(defaultValue = "5") int size,
-                                                   @RequestParam(defaultValue = "ASC") SortDirection costSortDirection,
-                                                   @RequestParam(defaultValue = "ASC") SortDirection titleSortDirection,
-                                                   @RequestParam(defaultValue = "TITLE") ProductSort mainSort
+                                   @RequestParam(name = "page", defaultValue = "1") int page,
+                                   @RequestParam(defaultValue = "5") int size,
+                                   @RequestParam(defaultValue = "ASC") SortDirection costSortDirection,
+                                   @RequestParam(defaultValue = "ASC") SortDirection titleSortDirection,
+                                   @RequestParam(defaultValue = "TITLE") ProductSort mainSort
     ) {
 
         if (page <= 1) {

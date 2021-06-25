@@ -33,13 +33,17 @@ public class CartService {
         return modelMapper.map(cart.orElseGet(Cart::new), CartDto.class);
     }
 
+    public Cart findCartById(UUID uuid) {
+        Optional<Cart> cart = cartRepository.findById(uuid);
+        return cart.orElseGet(Cart::new);
+    }
+
     @Transactional
     public void addToCart(UUID cartUuid, Long productId) {
 
         log.info(cartUuid.toString());
 
-        CartDto cartDto = findById(cartUuid);
-        Cart cart = modelMapper.map(cartDto, Cart.class);
+        Cart cart = findCartById(cartUuid);
         CartItem cartItem = cart.getItemByProductId(productId);
         if (cartItem != null) {
             cartItem.increment();
