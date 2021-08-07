@@ -26,6 +26,7 @@ public class CartService {
     private final CartItemsRepository cartItemsRepository;
     private final ModelMapper modelMapper;
 
+    @Transactional
     public Cart save(Cart cart) {
         return cartRepository.save(cart);
     }
@@ -37,7 +38,12 @@ public class CartService {
 
     public Cart findCartById(UUID uuid) {
         Optional<Cart> cart = cartRepository.findById(uuid);
-        return cart.orElseGet(Cart::new);
+        if (cart.isPresent()){
+            return cart.get();
+        }else {
+            Cart newCart = new Cart();
+            return save(newCart);
+        }
     }
 
     @Transactional
