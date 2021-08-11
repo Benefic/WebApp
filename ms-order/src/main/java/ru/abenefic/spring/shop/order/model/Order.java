@@ -26,7 +26,7 @@ public class Order {
     private OrderStatus status;
 
     private float summ;
-
+    private String address;
     @CreationTimestamp
     private LocalDateTime createdAt;
 

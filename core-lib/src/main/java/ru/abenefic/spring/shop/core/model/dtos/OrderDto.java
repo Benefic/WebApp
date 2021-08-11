@@ -16,7 +16,7 @@ public class OrderDto {
     private long id;
     private long user_id;
     private float summ;
-
+    private String address;
     @CreationTimestamp
     private LocalDateTime createdAt;
 

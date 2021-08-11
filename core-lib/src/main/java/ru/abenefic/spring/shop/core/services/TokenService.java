@@ -17,7 +17,7 @@ public class TokenService implements ITokenService {
 
     @Override
     public String generateToken(UserInfo user) {
-        Instant expirationTime = Instant.now().plus(1, ChronoUnit.HOURS);
+        Instant expirationTime = Instant.now().plus(1, ChronoUnit.DAYS);
         Date expirationDate = Date.from(expirationTime);
 
         String compactTokenString = Jwts.builder()
