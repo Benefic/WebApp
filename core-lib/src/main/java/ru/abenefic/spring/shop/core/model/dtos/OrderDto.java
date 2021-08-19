@@ -3,10 +3,9 @@ package ru.abenefic.spring.shop.core.model.dtos;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -17,8 +16,7 @@ public class OrderDto {
     private long user_id;
     private float summ;
     private String address;
-    @CreationTimestamp
     private LocalDateTime createdAt;
 
-    private Collection<OrderItemDto> orderItems;
+    private List<OrderItemDto> orderItems;
 }

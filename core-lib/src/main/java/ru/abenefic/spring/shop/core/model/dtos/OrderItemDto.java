@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 public class OrderItemDto {
 
     private long id;
-    private OrderDto order;
 
     private ProductDto product;
     private String productTitle;
