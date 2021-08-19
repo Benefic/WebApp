@@ -7,6 +7,7 @@ import ru.abenefic.spring.shop.core.model.UserInfo;
 import ru.abenefic.spring.shop.core.model.dtos.OrderDto;
 import ru.abenefic.spring.shop.order.service.OrderService;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -35,6 +36,12 @@ public class OrderController {
                              @PathVariable long id) {
         UserInfo userInfo = tokenService.parseToken(token.replace("Bearer ", ""));
         return service.getOrder(userInfo.getId(), id);
+    }
+
+    @GetMapping
+    public List<OrderDto> getOrders(@RequestHeader(value = HttpHeaders.AUTHORIZATION) String token) {
+        UserInfo userInfo = tokenService.parseToken(token.replace("Bearer ", ""));
+        return service.getOrders(userInfo.getId());
     }
 
 }

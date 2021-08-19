@@ -13,7 +13,6 @@ import java.util.List;
 public class OrderDto {
 
     private long id;
-    private long user_id;
     private float summ;
     private String address;
     private LocalDateTime createdAt;

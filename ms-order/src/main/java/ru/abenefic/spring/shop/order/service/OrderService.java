@@ -8,6 +8,7 @@ import ru.abenefic.spring.shop.order.model.Order;
 import ru.abenefic.spring.shop.order.repository.OrdersRepository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -33,5 +34,9 @@ public class OrderService {
     public OrderDto getOrder(long userId, long orderId) {
         Order order = repository.findByUserIdAndId(userId, orderId);
         return modelMapper.map(order, OrderDto.class);
+    }
+
+    public List<OrderDto> getOrders(long userId) {
+        return null;
     }
 }
