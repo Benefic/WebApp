@@ -13,7 +13,7 @@
         <td>#{{o.id}}</td>
         <td>{{o.summ}}</td>
         <td>{{o.address}}</td>
-        <td>{{o.createdAt}}</td>
+        <td>{{o.createdAt.substring(0,19).replace("T", " ")}}</td>
     </tr>
     </tbody>
 </table>

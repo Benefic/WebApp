@@ -37,6 +37,6 @@ public class OrderService {
     }
 
     public List<OrderDto> getOrders(long userId) {
-        return null;
+        return repository.findAllByUserId(userId).stream().map(it -> modelMapper.map(it, OrderDto.class)).toList();
     }
 }

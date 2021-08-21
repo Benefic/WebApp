@@ -30,7 +30,7 @@ public class CartController {
         if (token == null) {
             return cartService.getCartForUser(null, null);
         }
-        UserInfo userInfo = tokenService.parseToken(token);
+        UserInfo userInfo = tokenService.parseToken(token.replace("Bearer", ""));
         return cartService.getCartForUser(userInfo.getId(), null);
     }
 
