@@ -26,7 +26,6 @@
         <module>ms-auth</module>
         <module>ms-order</module>
         <module>ms-product</module>
-        <module>ms-storage</module>
         <module>eureka-server</module>
         <module>gateway-server</module>
         <module>front-server</module>
