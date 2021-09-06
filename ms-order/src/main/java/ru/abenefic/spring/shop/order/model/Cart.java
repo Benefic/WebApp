@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +62,7 @@ public class Cart {
     public void recalculate() {
         summ = 0;
         for (CartItem cartItem : cartItems) {
-            summ += cartItem.getCost();
+            summ += cartItem.getSum();
         }
     }
 
