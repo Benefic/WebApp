@@ -17,6 +17,7 @@ import ru.abenefic.spring.shop.product.model.ProductMapper;
 import ru.abenefic.spring.shop.product.repository.ProductRepository;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
@@ -30,6 +31,7 @@ public class ProductService extends CachedDataChangePublisher {
     private final ProductMapper mapper;
     private final RedisTemplate<String, String> redisTemplate;
     private final ObjectMapper objectMapper;
+    private ProductChangeSubscriber subscriber;
 
     @Autowired
     public ProductService(ProductRepository productRepository, ProductMapper mapper, RedisTemplate<String, String> redisTemplate, ObjectMapper objectMapper) {
@@ -40,8 +42,14 @@ public class ProductService extends CachedDataChangePublisher {
     }
 
     @PostConstruct
-    private void init(){
-        subscribe(new ProductChangeSubscriber(redisTemplate));
+    private void init() {
+        subscriber = new ProductChangeSubscriber(redisTemplate);
+        subscribe(subscriber);
+    }
+
+    @PreDestroy
+    public void preDestroy() {
+        unsubscribe(subscriber);
     }
 
     public Page<ProductDto> getAll(Specification<Product> spec, int page, int size, Sort sort) {
@@ -50,7 +58,7 @@ public class ProductService extends CachedDataChangePublisher {
 
     public ProductDto getById(Long id) {
         String key = PRODUCT_KEY_PREFIX + id;
-        if (redisTemplate.hasKey(key)){
+        if (redisTemplate.hasKey(key)) {
             String productData = redisTemplate.opsForValue().get(key);
             try {
                 return objectMapper.readValue(productData, ProductDto.class);
