@@ -8,6 +8,9 @@ spring:
     password:
   application:
     name: ms-auth
+  h2:
+    console:
+      enabled: true
 eureka:
   client:
     service-url:

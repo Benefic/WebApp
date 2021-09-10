@@ -6,12 +6,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.util.LinkedMultiValueMap;
 import ru.abenefic.spring.shop.core.model.dtos.ProductDto;
 import ru.abenefic.spring.shop.product.model.Product;
 import ru.abenefic.spring.shop.product.repository.ProductSpecifications;
 import ru.abenefic.spring.shop.product.service.ProductService;
+
+import javax.transaction.Transactional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -41,6 +44,8 @@ class ProductServiceIntegrationTest {
     }
 
     @Test
+    @Transactional
+    @Rollback
     void add() {
         ProductDto productDto = new ProductDto();
         productDto.setCategoryId(1L);
@@ -48,11 +53,12 @@ class ProductServiceIntegrationTest {
         productDto.setTitle("Test");
 
         ProductDto result = productService.add(productDto);
-        assertEquals(6L, result.getId());
         assertEquals("Test", result.getTitle());
     }
 
     @Test
+    @Transactional
+    @Rollback
     void delete() {
         productService.delete(5L);
 
@@ -63,6 +69,7 @@ class ProductServiceIntegrationTest {
     }
 
     @Test
+    @Rollback
     void save() {
         ProductDto productDto = productService.getById(5L);
         productDto.setTitle("Test");

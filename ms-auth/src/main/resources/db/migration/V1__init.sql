@@ -6,7 +6,7 @@ create table users
 );
 
 insert into users (login, password)
-values ('admin', '$2y$10$XgUB7dW3.DDyfhgDen6whepgGabBCto5GZj7FJahjshBHa4AFcr26');
+values ('admin', '$2a$10$x8jjdE1EQOXuZpwH39etseGoux.OFoP7uJ88sRqV4vQFEJM2WloDG');
 
 create table roles
 (
