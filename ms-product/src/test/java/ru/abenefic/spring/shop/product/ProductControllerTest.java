@@ -33,5 +33,14 @@ public class ProductControllerTest {
                 .andExpect(jsonPath("$.content[0].title", Matchers.equalTo("Book")));
     }
 
+    @Test
+    public void getProductByIdTest() throws Exception {
+        mockMvc.perform(get("/api/v1/products/1")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.title", Matchers.equalTo("Book")));
+
+    }
 
 }
