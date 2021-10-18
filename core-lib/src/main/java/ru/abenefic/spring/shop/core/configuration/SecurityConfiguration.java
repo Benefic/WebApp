@@ -18,16 +18,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private JWTAuthenticationFilter tokenFilter;
-
+    @Autowired
+    private RestAuthenticationEntryPoint authenticationEntryPoint;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .httpBasic().disable()
                 .csrf().disable()
+                .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)
+                .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().authorizeRequests().antMatchers("/").permitAll().antMatchers("/h2-console/**").permitAll()
                 .and()
                 .addFilterBefore(tokenFilter,
                         UsernamePasswordAuthenticationFilter.class);
+
+        http.headers().frameOptions().disable();
     }
 
     @Bean

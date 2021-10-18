@@ -27,8 +27,9 @@ public class UserService {
     private RedisTemplate<String, String> redisTemplate;
 
     public User saveUser(User user) {
-        Role role = roleRepository.findByName("ROLE_USER");
-        user.setRoles(List.of(role));
+        Role roleUser = roleRepository.findByName("ROLE_USER");
+        Role roleAdmin = roleRepository.findByName("ROLE_ADMIN");
+        user.setRoles(List.of(roleUser,roleAdmin));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }

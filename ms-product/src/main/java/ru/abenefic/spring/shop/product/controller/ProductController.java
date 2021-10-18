@@ -5,18 +5,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+import ru.abenefic.spring.shop.core.enums.ProductSort;
+import ru.abenefic.spring.shop.core.enums.SortDirection;
 import ru.abenefic.spring.shop.core.exceptions.NoSuchPageException;
 import ru.abenefic.spring.shop.core.model.dtos.ProductDto;
 import ru.abenefic.spring.shop.product.model.Product;
-import ru.abenefic.spring.shop.product.model.ProductSort;
-import ru.abenefic.spring.shop.product.model.SortDirection;
 import ru.abenefic.spring.shop.product.repository.ProductSpecifications;
 import ru.abenefic.spring.shop.product.service.ProductService;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/products")
@@ -30,12 +28,12 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ProductDto>> getAll(@RequestParam MultiValueMap<String, String> params,
-                                                   @RequestParam(defaultValue = "1") int page,
-                                                   @RequestParam(defaultValue = "10") int size,
-                                                   @RequestParam(defaultValue = "ASC") SortDirection costSortDirection,
-                                                   @RequestParam(defaultValue = "ASC") SortDirection titleSortDirection,
-                                                   @RequestParam(defaultValue = "TITLE") ProductSort mainSort
+    public Page<ProductDto> getAll(@RequestParam MultiValueMap<String, String> params,
+                                   @RequestParam(name = "page", defaultValue = "1") int page,
+                                   @RequestParam(defaultValue = "5") int size,
+                                   @RequestParam(defaultValue = "ASC") SortDirection costSortDirection,
+                                   @RequestParam(defaultValue = "ASC") SortDirection titleSortDirection,
+                                   @RequestParam(defaultValue = "TITLE") ProductSort mainSort
     ) {
 
         if (page <= 1) {
@@ -61,7 +59,7 @@ public class ProductController {
         if (products.getTotalPages() <= page) {
             throw new NoSuchPageException("Maximum page is " + products.getTotalPages());
         }
-        return new ResponseEntity<>(products.getContent(), HttpStatus.OK);
+        return products;
     }
 
     @GetMapping("/{id}")
@@ -70,11 +68,14 @@ public class ProductController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ResponseStatus(HttpStatus.CREATED)
     public ProductDto add(@RequestBody ProductDto product) {
         return productService.add(product);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void delete(@PathVariable Long id) {
         productService.delete(id);
     }
